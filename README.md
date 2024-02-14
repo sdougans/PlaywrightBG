@@ -4,6 +4,14 @@
 ```npm install```
 <br>
 
+## QUICK START
+```npm run test``` will run all tests headlessly
+
+```npm run debug``` will run all tests in debug mode
+
+See section below or look on [Playwright docs on running tests](https://playwright.dev/docs/running-tests) for more information.
+<br>
+
 ## PROJECT INFO
 Tests are contained in ```/tests```
 
@@ -14,18 +22,12 @@ Config is in ```playwright.config.ts```
 New project setup info can be found in SETUP.md
 <br>
 
-## RUNNING TESTS
-Convenient scripts included in ```package.json```
-
-```npm run test``` will run all tests headlessly
-
-```npm run debug``` will run all tests in debug mode
-
-See section below or look on [Playwright docs on running tests](https://playwright.dev/docs/running-tests) for more information.
-<br>
-
 ## CONFIGURATIONS
 Tests will run on all browsers outlined in ```playwright.config.ts```
+
+Web interactions timeout set to 30 secs
+
+Assertions (expect) timeout set to 5 sec
 <br>
 
 ## MORE TEST OPTIONS
