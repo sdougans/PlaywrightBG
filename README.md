@@ -31,25 +31,25 @@ Assertions (expect) timeout set to 5 sec
 <br>
 
 ## MORE TEST OPTIONS
-#####Run all tests
+##### Run all tests
 ```npx playwright test```
 
-#####Run in Headed mode (see the tests run in a browser)
+##### Run in Headed mode (see the tests run in a browser)
 ```npx playwright test --headed```
 
-#####Run in UI mode (see the tests run with option for playback)
+##### Run in UI mode (see the tests run with option for playback)
 ```npx playwright test --ui```
 
-#####Run on a specific browser
+##### Run on a specific browser
 ```npx playwright test --project chromium```
 
-#####Run a specific test file
+##### Run a specific test file
 ```npx playwright test testfile.spec.ts```
 
-#####Run a specific test
+##### Run a specific test
 ```npx playwright test -g "test name"```
 
-#####Run tests in VS Code
+##### Run tests in VS Code
 Tests can be run right from VS Code using the [VS Code extension](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright). Once installed you can simply click the green triangle next to the test you want to run or run all tests from the testing sidebar. Check out the [Getting Started with VS Code](https://playwright.dev/docs/getting-started-vscode#running-tests) guide for more details.
 <br>
 
