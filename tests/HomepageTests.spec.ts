@@ -6,6 +6,9 @@ let page: any;
 let base_url = process.env.BASE_URL;
 
 let locator_nudger: any;
+let locator_audienceSelector: any;
+let locator_audienceSelectorRegion: any;
+let locator_currentCountry: any;
 
 test.beforeAll("Setup", async ({browser}) => {
     context = await browser.newContext();
@@ -17,6 +20,9 @@ test.beforeAll("Setup", async ({browser}) => {
 
     page = await context.newPage();
     locator_nudger = page.locator('[class^="AudienceNudger_audienceNudger"][role="alert"]');
+    locator_audienceSelector = page.locator('#audience-selector');
+    locator_audienceSelectorRegion = page.locator('[class^="AudienceSelector_selectorSection"][class*="region"] h2');
+    locator_currentCountry = page.locator('[data-testid="currentRegionLabel"]');
 
 });
 
@@ -24,29 +30,36 @@ test.describe('Landing experience is nudger or forced audience selector', () => 
     
     test('should be nudger for /en/uk/individual-investors/', async () => {
         await page.goto(base_url + "/en/uk/individual-investors/");
-        await expect(locator_nudger).toBeVisible;
+        expect(await locator_nudger).toBeVisible;
         const nudger_text = await locator_nudger.textContent();
-        expect(nudger_text).toContain("You are viewing this site as an Individual investor in UK.");
+        expect(await nudger_text).toContain("You are viewing this site as an Individual investor in UK.");
     });
 
     test('should be nudger for /en/uk/institutional-investor/', async () => {
         await page.goto(base_url + "/en/uk/institutional-investor/");
-        await expect(locator_nudger).toBeVisible;
+        expect(await locator_nudger).toBeVisible;
         const nudger_text = await locator_nudger.textContent();
-        expect(nudger_text).toContain("You are viewing this site as an Institutional investor in UK.");
+        expect(await nudger_text).toContain("You are viewing this site as an Institutional investor in UK.");
     });
 
     test('should be nudger for /en/uk/intermediaries/', async () => {
         await page.goto(base_url + "/en/uk/intermediaries/");
-        await expect(locator_nudger).toBeVisible;
+        expect(await locator_nudger).toBeVisible;
         const nudger_text = await locator_nudger.textContent();
-        expect(nudger_text).toContain("You are viewing this site as an Intermediaries in UK.");
+        expect(await nudger_text).toContain("You are viewing this site as an Intermediaries in UK.");
     });
 
-    // test('should be Forced Audience Selector for USA channel', async ({ page }) => {
-    // });
+    test('should be Forced Audience Selector for USA channel', async () => {
+        await page.goto(base_url + "/en/usa/professional-investor/");
+        expect(await locator_audienceSelector).toBeVisible;
+        expect(await locator_audienceSelector.getAttribute("aria-hidden")).toBeFalsy;
+        expect(await locator_audienceSelectorRegion).toBeVisible;
+        expect(await locator_audienceSelectorRegion.textContent()).toContain("01. Your location");
+        expect(await locator_currentCountry.textContent()).toContain("USA");
 
-    // test('should be Forced Audience Selector for Global channel', async ({ page }) => {
+    });
+
+    // test('should be Forced Audience Selector for Global channel', async () => {
     // });
 
 });
