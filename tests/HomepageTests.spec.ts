@@ -56,10 +56,15 @@ test.describe('Landing experience is nudger or forced audience selector', () => 
         expect(await locator_audienceSelectorRegion).toBeVisible;
         expect(await locator_audienceSelectorRegion.textContent()).toContain("01. Your location");
         expect(await locator_currentCountry.textContent()).toContain("USA");
-
     });
 
-    // test('should be Forced Audience Selector for Global channel', async () => {
-    // });
+    test('should be Forced Audience Selector for Global channel', async () => {
+        await page.goto(base_url + "/en/global/all-users/");
+        expect(await locator_audienceSelector).toBeVisible;
+        expect(await locator_audienceSelector.getAttribute("aria-hidden")).toBeFalsy;
+        expect(await locator_audienceSelectorRegion).toBeVisible;
+        expect(await locator_audienceSelectorRegion.textContent()).toContain("01. Your location");
+        expect(await locator_currentCountry.textContent()).toContain("Global");
+    });
 
 });
