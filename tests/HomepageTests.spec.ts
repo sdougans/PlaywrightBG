@@ -26,7 +26,7 @@ test.beforeAll("Setup", async ({browser}) => {
 
 });
 
-test.describe('Landing experience is nudger or forced audience selector', () => {
+test.describe('Landing experience is nudger or forced audience selector for new users', () => {
     
     test('should be nudger for /en/uk/individual-investors/', async () => {
         await page.goto(base_url + "/en/uk/individual-investors/");
