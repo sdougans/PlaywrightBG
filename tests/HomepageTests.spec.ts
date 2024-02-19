@@ -68,3 +68,27 @@ test.describe('Landing experience is nudger or forced audience selector for new 
     });
 
 });
+
+test.describe('Suppressed landing experience for returning users', () => {
+
+    test('should be no nudger for /en/uk/individual-investors/', async () => {
+        
+    });
+
+    test('should be no nudger for /en/uk/institutional-investor/', async () => {
+
+    });
+
+    test('should be no nudger for /en/uk/intermediaries/', async () => {
+
+    });
+
+    test('should be no Forced Audience Selector for USA channel', async () => {
+
+    });
+
+    test('should be no Forced Audience Selector for Global channel', async () => {
+
+    });
+
+});
