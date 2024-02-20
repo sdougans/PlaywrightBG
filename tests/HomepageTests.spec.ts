@@ -9,6 +9,8 @@ let locator_nudger: any;
 let locator_audienceSelector: any;
 let locator_audienceSelectorRegion: any;
 let locator_currentCountry: any;
+let locator_globalNavigation: any;
+let locator_search: any;
 
 test.beforeAll("Setup", async ({browser}) => {
     context = await browser.newContext();
@@ -22,6 +24,8 @@ test.beforeAll("Setup", async ({browser}) => {
     locator_audienceSelector = page.locator('#audience-selector');
     locator_audienceSelectorRegion = page.locator('[class^="AudienceSelector_selectorSection"][class*="region"] h2');
     locator_currentCountry = page.locator('[data-testid="currentRegionLabel"]');
+    locator_globalNavigation = page.locator('#global-navigation');
+    locator_search = page.locator('[data-testid="Typeahead-Toggle"]');
 });
 
 test.describe('Landing experience is nudger or forced audience selector for new users', () => {
@@ -106,4 +110,13 @@ test.describe('Suppressed landing experience for returning users', () => {
         expect(await locator_audienceSelectorRegion).not.toBeInViewport();
     });
 
+});
+
+test.only('Homepage has navigation, content and footer', async () => {
+    await page.goto(base_url + "/en/uk/individual-investors/");
+    expect(await locator_audienceSelector).toBeInViewport();
+    expect(await locator_globalNavigation).toBeInViewport();
+    expect(await locator_search).toBeInViewport();
+    expect(await page.locator('h1').textContent()).toContain("Imagine the future")
+    expect(await page.locator('footer').textContent()).toContain("Learn about Baillie Gifford")
 });
