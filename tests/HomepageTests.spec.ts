@@ -12,7 +12,6 @@ let locator_currentCountry: any;
 
 test.beforeAll("Setup", async ({browser}) => {
     context = await browser.newContext();
-
     const apiContext = await request.newContext();
     const apiUtils = new ApiUtils(apiContext);
     const cookieStamp = await apiUtils.GetCookieToken();
@@ -23,7 +22,6 @@ test.beforeAll("Setup", async ({browser}) => {
     locator_audienceSelector = page.locator('#audience-selector');
     locator_audienceSelectorRegion = page.locator('[class^="AudienceSelector_selectorSection"][class*="region"] h2');
     locator_currentCountry = page.locator('[data-testid="currentRegionLabel"]');
-
 });
 
 test.describe('Landing experience is nudger or forced audience selector for new users', () => {
@@ -72,23 +70,40 @@ test.describe('Landing experience is nudger or forced audience selector for new 
 test.describe('Suppressed landing experience for returning users', () => {
 
     test('should be no nudger for /en/uk/individual-investors/', async () => {
-
+        await context.addCookies([{name:"cookieSelectedRegion", value: "UK", url: base_url}]);
+        await context.addCookies([{name:"cookieSelectedChannel", value: "Individual investor", url: base_url}]);
+        await page.goto(base_url + "/en/uk/individual-investors/");
+        expect(await locator_nudger).not.toBeInViewport();
     });
 
     test('should be no nudger for /en/uk/institutional-investor/', async () => {
-
+        await context.addCookies([{name:"cookieSelectedRegion", value: "UK", url: base_url}]);
+        await context.addCookies([{name:"cookieSelectedChannel", value: "Institutional investor", url: base_url}]);
+        await page.goto(base_url + "/en/uk/institutional-investor/");
+        expect(await locator_nudger).not.toBeInViewport();
     });
 
     test('should be no nudger for /en/uk/intermediaries/', async () => {
-
+        await context.addCookies([{name:"cookieSelectedRegion", value: "UK", url: base_url}]);
+        await context.addCookies([{name:"cookieSelectedChannel", value: "Intermediaries", url: base_url}]);
+        await page.goto(base_url + "/en/uk/intermediaries/");
+        expect(await locator_nudger).not.toBeInViewport();
     });
 
     test('should be no Forced Audience Selector for USA channel', async () => {
-
+        await context.addCookies([{name:"cookieSelectedRegion", value: "USA", url: base_url}]);
+        await context.addCookies([{name:"cookieSelectedChannel", value: "Professional investor", url: base_url}]);
+        await page.goto(base_url + "/en/usa/professional-investor/");
+        expect(await locator_audienceSelector).toBeInViewport();
+        expect(await locator_audienceSelectorRegion).not.toBeInViewport();
     });
 
     test('should be no Forced Audience Selector for Global channel', async () => {
-
+        await context.addCookies([{name:"cookieSelectedRegion", value: "Global", url: base_url}]);
+        await context.addCookies([{name:"cookieSelectedChannel", value: "All users", url: base_url}]);
+        await page.goto(base_url + "/en/global/all-users/");
+        expect(await locator_audienceSelector).toBeInViewport();
+        expect(await locator_audienceSelectorRegion).not.toBeInViewport();
     });
 
 });
