@@ -27,7 +27,7 @@ steps:
 - task: PublishTestResults@2
   displayName: 'Publish test results'
   inputs:
-    searchFolder: 'test-results'
+    searchFolder: 'junit-test-results'
     testResultsFormat: 'JUnit'
     testResultsFiles: 'e2e-junit-results.xml'
     mergeTestResults: true
@@ -37,7 +37,14 @@ steps:
 
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: test-results/
-    artifact: playwright-test-report
+    targetPath: junit-test-results/
+    artifact: junit-test-results
+    publishLocation: 'pipeline'
+  condition: succeededOrFailed()
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: html-test-results/
+    artifact: html-test-results
     publishLocation: 'pipeline'
   condition: succeededOrFailed()
