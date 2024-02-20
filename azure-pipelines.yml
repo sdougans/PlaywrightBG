@@ -44,7 +44,14 @@ steps:
 
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: html-test-results/
-    artifact: html-test-results
+    targetPath: playwright-report/
+    artifact: html-test-report
+    publishLocation: 'pipeline'
+  condition: succeededOrFailed()
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: test-results/
+    artifact: screenshots
     publishLocation: 'pipeline'
   condition: succeededOrFailed()
