@@ -21,3 +21,23 @@ steps:
 - script: |
     npx playwright test
   displayName: 'Run tests'
+  env:
+    CI: 'true'
+
+- task: PublishTestResults@2
+  displayName: 'Publish test results'
+  inputs:
+    searchFolder: 'test-results'
+    testResultsFormat: 'JUnit'
+    testResultsFiles: 'e2e-junit-results.xml'
+    mergeTestResults: true
+    failTaskOnFailedTests: true
+    testRunTitle: 'End-To-End Tests'
+  condition: succeededOrFailed()
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: playwright-report
+    artifact: playwright-report
+    publishLocation: 'pipeline'
+  condition: succeededOrFailed()
