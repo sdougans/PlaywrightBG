@@ -12,8 +12,12 @@ steps:
 
 - script: |
     npm install
-    npx playwright install --with-deps
   displayName: 'npm install'
+  workingDirectory: '/'
+
+- script: |
+    npx playwright install --with-deps
+  displayName: 'npx playwright install'
   workingDirectory: '/'
 
 - script: |
