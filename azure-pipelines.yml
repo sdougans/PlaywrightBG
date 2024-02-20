@@ -13,14 +13,11 @@ steps:
 - script: |
     npm install
   displayName: 'npm install'
-  workingDirectory: '/'
 
 - script: |
     npx playwright install --with-deps
   displayName: 'npx playwright install'
-  workingDirectory: '/'
 
 - script: |
     npx playwright test
   displayName: 'Run tests'
-  workingDirectory: '/'
