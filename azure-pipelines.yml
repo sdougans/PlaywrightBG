@@ -16,7 +16,7 @@ steps:
   displayName: 'npm install'
   workingDirectory: '/'
 
-  - script: |
+- script: |
     npx playwright test
   displayName: 'Run tests'
   workingDirectory: '/'
