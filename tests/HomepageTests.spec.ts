@@ -112,7 +112,7 @@ test.describe('Suppressed landing experience for returning users', () => {
 
 });
 
-test.only('Homepage has navigation, content and footer', async () => {
+test('Homepage has navigation, content and footer', async () => {
     await page.goto(base_url + "/en/uk/individual-investors/");
     expect(await locator_audienceSelector).toBeInViewport();
     expect(await locator_globalNavigation).toBeInViewport();
