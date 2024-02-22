@@ -1,11 +1,11 @@
 import { test, expect, request } from '@playwright/test';
 import { ApiUtils } from '../utils/ApiUtils';
+import { StrategyPage } from '../page-objects/strategies-pageObject';
 
 let context: any;
 let page: any;
 let base_url = process.env.BASE_URL;
-
-let locator_globalNavigation: any;
+let strategyPage: StrategyPage;
 
 test.beforeAll("Setup", async ({browser}) => {
     context = await browser.newContext();
@@ -13,9 +13,8 @@ test.beforeAll("Setup", async ({browser}) => {
     const apiUtils = new ApiUtils(apiContext);
     const cookieStamp = await apiUtils.GetCookieToken();
     await context.addCookies([{name:"CookieConsent", value: cookieStamp, url: base_url}]);
-
     page = await context.newPage();
-    locator_globalNavigation = page.locator('#global-navigation');
+    strategyPage = new StrategyPage(page);
 });
 
 test.describe('Strategy landing pages', () => {
